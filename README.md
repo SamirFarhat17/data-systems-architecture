@@ -1,2 +1,2 @@
-# machine-learning-optimization
-Labs and assignments for EC500
+# data-systems-architecture
+Labs and assignments for CS561
