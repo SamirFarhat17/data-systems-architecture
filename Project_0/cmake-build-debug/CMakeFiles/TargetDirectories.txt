@@ -1,0 +1,3 @@
+C:/Users/samir/OneDrive/Desktop/Boston University/Spring_2022/CS561/data-systems-architecture/Project_0/cmake-build-debug/CMakeFiles/Project_0.dir
+C:/Users/samir/OneDrive/Desktop/Boston University/Spring_2022/CS561/data-systems-architecture/Project_0/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/samir/OneDrive/Desktop/Boston University/Spring_2022/CS561/data-systems-architecture/Project_0/cmake-build-debug/CMakeFiles/rebuild_cache.dir
