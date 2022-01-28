@@ -1,12 +1,61 @@
 #include "zonemaps.h"
 #include <assert.h>
 
+// Implemented quicksort for sorting elements
+
+template<typename T>
+int partition(std::vector<T> _elements, int start, int end){
+
+	int pivot = end;
+	int j = start;
+	for(int i = start;i < end;++i){
+		if(_elements[i]<_elements[pivot]){
+			std::swap(_elements[i],_elements[j]);
+		}
+	}
+	std::swap(_elements[j],_elements[pivot]);
+	return j;
+}
+template<typename T>
+void quicksort(std::vector<T> &_elements, int start, int end ){
+
+	if(start<end){
+		int p = partition(_elements, start, end);
+		quicksort(_elements,start,p-1);
+		quicksort(_elements,p+1,end);
+	}
+
+}
+// Binary search for key-based queries
+template<typename T>
+bool binary_search(int start, int end, int key, std::vector<T> _elements) {
+	int lo = start;
+	int up = end;
+
+	while (lo < up)
+	{
+		int mid = lo + (up-lo)/2;
+		if(key == _elements.at(mid))
+		{
+			return true;
+		}
+		if(key < _elements.at(mid)) {
+			up = mid;
+		}
+		else {
+			lo = mid;
+		}
+	}
+	return false;
+}
+
 template<typename T>
 zonemap<T>::zonemap(std::vector<T> _elements, uint32_t _num_elements_per_zone)
 {
     // constructor
     elements = _elements;
-    zones = new std::vector<zone<T>>;
+    std::vector<zone<T>> _zones;
+    zones = _zones;
     num_elements_per_zone =_num_elements_per_zone;
     num_zones = sizeof(_elements)/_num_elements_per_zone;
 }
@@ -48,8 +97,8 @@ void zonemap<T>::build()
 
     zones = _zones;
 
-    for(std::vector<T> zone: zones ) {
-        assert(sizeof(zone) <= num_elements_per_zone);
+    for(zone<T> zone: zones ) {
+        assert(sizeof(zone.elements) <= num_elements_per_zone);
     }
 }
 
@@ -66,8 +115,8 @@ bool zonemap<T>::query(T _key)
 {
     for(zone<T> z: zones ) {
         if(z.min >= _key && z.max<= _key) {
-            quicksort(z);
-            if(binary_search(0, sizeof(z), _key)) return true;
+            quicksort(z.elements, 0, sizeof(z.elements));
+            if(binary_search(0, sizeof(z), _key, z.elements)) return true;
             else continue;
         }
     }
@@ -88,53 +137,4 @@ std::vector<T> zonemap<T>::query(T _low, T _high)
         if(query(i)) found_values.push_back(i);
     }
     return found_values;
-}
-
-// Implemented quicksort for sorting elements
-template<typename T>
-int partition(std::vector<T> &_elements, int start, int end){
-
-	int pivot = end;
-	int j = start;
-	for(int i=start;i<end;++i){
-		if(_elements[i]<_elements[pivot]){
-			std::swap(_elements[i],_elements[j]);
-		}
-	}
-	std::swap(_elements[j],_elements[pivot]);
-	return j;
-
-}
-template<typename T>
-void quicksort(std::vector<T> &_elements, int start, int end ){
-
-	if(start<end){
-		int p = partition(_elements, start, end);
-		quicksort(_elements,start,p-1);
-		quicksort(_elements,p+1,end);
-	}
-
-}
-// Binary search for key-based queries
-template<typename T>
-bool binary_search(T start, T end, T key) {
-    T lo = start;
-    T up = end;
-
-    while (lo < up)
-    {
-        T mid = lo + (up-lo)/2;
-        if(key == *mid)
-        {
-            return true;
-        }
-        if(key < *mid) {
-            up = mid;
-        }
-        else {
-            lo = mid;
-        }
-    }
-
-    return false;
 }

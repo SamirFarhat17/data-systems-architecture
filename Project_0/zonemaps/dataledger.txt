@@ -1,7 +1,1 @@
-.//data_100-elems_5-kperct_10-lperct_1seed1643297730.dat
-.//data_1000000-elems_0-kperct_5-lperct_1seed1643306640.dat
-.//data_1000000-elems_0-kperct_5-lperct_1seed1643312573.dat
-.//data_1000000-elems_0-kperct_5-lperct_1seed1643312686.dat
-.//data_1000000-elems_0-kperct_5-lperct_1seed1643325444.dat
-.//data_900000-elems_0-kperct_5-lperct_1seed1643326023.dat
-.//data_900000-elems_0-kperct_5-lperct_1seed1643378412.dat
+.//data_900000-elems_0-kperct_5-lperct_1seed1643384936.dat
