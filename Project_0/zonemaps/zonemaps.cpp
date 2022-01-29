@@ -17,7 +17,7 @@ int partition(std::vector<T> _elements, int start, int end){
 	return j;
 }
 template<typename T>
-void quicksort(std::vector<T> &_elements, int start, int end ){
+void quicksort(std::vector<T> _elements, int start, int end ){
 
 	if(start<end){
 		int p = partition(_elements, start, end);
@@ -57,7 +57,7 @@ zonemap<T>::zonemap(std::vector<T> _elements, uint32_t _num_elements_per_zone)
     std::vector<zone<T>> _zones;
     zones = _zones;
     num_elements_per_zone =_num_elements_per_zone;
-    num_zones = sizeof(_elements)/_num_elements_per_zone;
+    num_zones = _elements.size()/_num_elements_per_zone;
 }
 
 template<typename T>
@@ -69,11 +69,11 @@ void zonemap<T>::build()
     T temp_max = 0;
     T temp_count = 0;
 
-    for(uint32_t i = 0; i  <num_zones; i++) {
+    for(uint32_t i = 0; i  < num_zones; i++) {
         std::vector<T> _temp_zone_elements;
         for(uint32_t j = 0; j < num_elements_per_zone; j++) {
             temp_count = j;
-            if(i*num_elements_per_zone + j < sizeof(elements)){
+            if(i*num_elements_per_zone + j < elements.size()){
                 _temp_zone_elements.push_back(elements.at(i*num_elements_per_zone + j));
                 if(elements.at(i*num_elements_per_zone + j)< temp_min) {
                     temp_min = elements.at(i*num_elements_per_zone + j);
@@ -98,7 +98,7 @@ void zonemap<T>::build()
     zones = _zones;
 
     for(zone<T> zone: zones ) {
-        assert(sizeof(zone.elements) <= num_elements_per_zone);
+        assert(zone.elements.size() <= num_elements_per_zone);
     }
 }
 
@@ -115,8 +115,8 @@ bool zonemap<T>::query(T _key)
 {
     for(zone<T> z: zones ) {
         if(z.min >= _key && z.max<= _key) {
-            quicksort(z.elements, 0, sizeof(z.elements));
-            if(binary_search(0, sizeof(z), _key, z.elements)) return true;
+            quicksort(z.elements, 0, z.elements.size());
+            if(binary_search(0, z.elements.size(), _key, z.elements)) return true;
             else continue;
         }
     }
