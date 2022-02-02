@@ -1,3 +1,1 @@
-.//data_900000-elems_0-kperct_5-lperct_1seed1643384936.dat
-.//data_2500000-elems_0-kperct_50-lperct_1seed1643418176.dat
-.//data_2500000-elems_0-kperct_5-lperct_1seed1643418290.dat
+.//data_100000-elems_0-kperct_5-lperct_1seed1643762502.dat

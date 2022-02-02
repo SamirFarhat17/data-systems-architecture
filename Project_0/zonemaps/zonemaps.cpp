@@ -50,7 +50,7 @@ bool binary_search(int start, int end, int key, std::vector<T> _elements) {
 }
 
 template<typename T>
-zonemap<T>::zonemap(std::vector<T> _elements, uint32_t _num_elements_per_zone)
+zonemap<T>::zonemap(std::vector<T> _elements, uint _num_elements_per_zone)
 {
     // constructor
     elements = _elements;
@@ -69,9 +69,9 @@ void zonemap<T>::build()
     T temp_max = 0;
     T temp_count = 0;
 
-    for(uint32_t i = 0; i  < num_zones; i++) {
+    for(uint i = 0; i  < num_zones; i++) {
         std::vector<T> _temp_zone_elements;
-        for(uint32_t j = 0; j < num_elements_per_zone; j++) {
+        for(uint j = 0; j < num_elements_per_zone; j++) {
             temp_count = j;
             if(i*num_elements_per_zone + j < elements.size()){
                 _temp_zone_elements.push_back(elements.at(i*num_elements_per_zone + j));

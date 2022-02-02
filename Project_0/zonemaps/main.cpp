@@ -41,7 +41,7 @@ std::vector<tuple<int,int>> generateRangeQueries(std::vector<int> data, int n)
 	std::vector<tuple<int,int>> range_queries;
 	std::vector<int> queries = generatePointQueries(std::move(data), n);
 
-	int ten_percent = queries.size();
+	int ten_percent = queries.size()/10;
 
 	range_queries.emplace_back(queries.at(ten_percent), queries.at(ten_percent*2));
 	range_queries.emplace_back(queries.at(ten_percent*3), queries.at(ten_percent*4));
@@ -85,11 +85,11 @@ int main(int argc, char **argv) {
 	//1. ----------------------------- initialize zonemap and build -----------------------------
 	//build zonemap
 	cout << "zonemap intializing..." << '\n';
-	zonemap<int> zones(data, (uint32_t) data.size() / 100);
+	zonemap<int> zones(data, (uint) data.size() / 100);
 	cout << "zonemap building..." << '\n';
 	zones.build();
 	cout << "rane queries generating..." << '\n';
-	//std::vector<tuple<int,int>> range_queries = generateRangeQueries(data, data.size());
+	std::vector<tuple<int,int>> range_queries = generateRangeQueries(data, data.size());
 	if (test_case == "test_pq") {
 		cout << "test commencing..." << '\n';
 		//2. ----------------------------- point queries -----------------------------
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
 		unsigned long long point_query_time = duration.count();
 		std::cout << "Time taken to perform point queries from zonemap = " << point_query_time << " microseconds"
 		          << endl;
-	} /*else if (test_case == "test_rq_1") {
+	} else if (test_case == "test_rq_1") {
 		//3. ----------------------------- range queries -----------------------------
 		auto start = std::chrono::high_resolution_clock::now();
 		// range query from zonemaps here
@@ -157,7 +157,7 @@ int main(int argc, char **argv) {
 		unsigned long long range_query_time = duration.count();
 		std::cout << "Time taken to perform range query 4 from zonemap = " << range_query_time << " microseconds"
 		          << endl;
-	}*/
+	}
 
 	return 0;
 }
