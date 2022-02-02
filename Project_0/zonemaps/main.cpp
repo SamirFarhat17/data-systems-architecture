@@ -62,10 +62,11 @@ int main(int argc, char **argv) {
 	std::string input_file = argv[1];
 	std::string test_case = argv[2];
 
-	if (test_case != "test_pq" && test_case != "test_rq_1" && test_case != "test_rq_2" && test_case != "test_rq_3" &&
-	    test_case != "test_rq_4") {
+	if (test_case != "test_pq" && test_case != "test_rq_1" && test_case 
+	!= "test_rq_2" && test_case != "test_rq_3" && test_case != "test_rq_4") {
 		std::cout
-				<< "<test_case> argument has to be one of the following: test_pq, test_rq_1, test_rq_2, test_rq_3 or test_rq_4"
+				<< "<test_case> argument has to be one of the following: "
+				<< "test_pq, test_rq_1, test_rq_2, test_rq_3 or test_rq_4"
 				<< std::endl;
 		return 0;
 	}
@@ -85,7 +86,7 @@ int main(int argc, char **argv) {
 	//1. ----------------------------- initialize zonemap and build -----------------------------
 	//build zonemap
 	cout << "zonemap intializing..." << '\n';
-	zonemap<int> zones(data, (uint) data.size() / 100);
+	zonemap<int> zones(data, (uint) data.size() / 10);
 	cout << "zonemap building..." << '\n';
 	zones.build();
 	cout << "rane queries generating..." << '\n';
@@ -97,13 +98,14 @@ int main(int argc, char **argv) {
 		cout << "Point queries generated!" << '\n';
 		auto start = std::chrono::high_resolution_clock::now();
 		for (int key: queries) {
-			cout << "Querying " << key << " ";
+			std::cout << "Querying " << key << "\n" ;
 			zones.query(key);
 		}
 		auto stop = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 		unsigned long long point_query_time = duration.count();
-		std::cout << "Time taken to perform point queries from zonemap = " << point_query_time << " microseconds"
+		std::cout << "Time taken to perform point queries from zonemap = " << point_query_time 
+		<< " microseconds"
 		          << endl;
 	} else if (test_case == "test_rq_1") {
 		//3. ----------------------------- range queries -----------------------------
@@ -116,7 +118,8 @@ int main(int argc, char **argv) {
 		auto stop = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 		unsigned long long range_query_time = duration.count();
-		std::cout << "Time taken to perform range query 1 from zonemap = " << range_query_time << " microseconds"
+		std::cout << "Time taken to perform range query 1 from zonemap = " << range_query_time 
+		<< " microseconds"
 		          << endl;
 	} else if (test_case == "test_rq_2") {
 		//3. ----------------------------- range queries -----------------------------
@@ -129,7 +132,8 @@ int main(int argc, char **argv) {
 		auto stop = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 		unsigned long long range_query_time = duration.count();
-		std::cout << "Time taken to perform range query 2 from zonemap = " << range_query_time << " microseconds"
+		std::cout << "Time taken to perform range query 2 from zonemap = " << range_query_time 
+		<< " microseconds"
 		          << endl;
 	} else if (test_case == "test_rq_3") {
 		//3. ----------------------------- range queries -----------------------------
@@ -142,7 +146,8 @@ int main(int argc, char **argv) {
 		auto stop = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 		unsigned long long range_query_time = duration.count();
-		std::cout << "Time taken to perform range query 3 from zonemap = " << range_query_time << " microseconds"
+		std::cout << "Time taken to perform range query 3 from zonemap = " << range_query_time 
+		<< " microseconds"
 		          << endl;
 	} else if (test_case == "test_rq_4") {
 		//3. ----------------------------- range queries -----------------------------
@@ -155,7 +160,8 @@ int main(int argc, char **argv) {
 		auto stop = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 		unsigned long long range_query_time = duration.count();
-		std::cout << "Time taken to perform range query 4 from zonemap = " << range_query_time << " microseconds"
+		std::cout << "Time taken to perform range query 4 from zonemap = " << range_query_time 
+		<< " microseconds"
 		          << endl;
 	}
 

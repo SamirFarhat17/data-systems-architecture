@@ -1,49 +1,64 @@
 #include "zonemaps.h"
 #include <assert.h>
+#include <iostream>
+using std::cout;
 
 // Implemented quicksort for sorting elements
-
 template<typename T>
-int partition(std::vector<T> _elements, int start, int end){
+T partition(std::vector<T> &vec,  size_t start, size_t end) {
+    T pivot = vec.at(start);
+    auto lh = start + 1;
+    auto rh = end;
 
-	int pivot = end;
-	int j = start;
-	for(int i = start;i < end;++i){
-		if(_elements[i]<_elements[pivot]){
-			std::swap(_elements[i],_elements[j]);
-		}
-	}
-	std::swap(_elements[j],_elements[pivot]);
-	return j;
+    while (true) {
+        while (lh < rh && vec.at(rh) >= pivot) rh--;
+        while (lh < rh && vec.at(lh) < pivot) lh++;
+
+        if (lh == rh) break;
+
+        T tmp = vec.at(lh);
+        vec.at(lh) = vec.at(rh);
+        vec.at(rh) = tmp;
+    }
+
+    if (vec.at(lh) >= pivot) return start;
+    vec.at(start) = vec.at(lh);
+    vec.at(lh) = pivot;
+    return lh;
 }
 template<typename T>
-void quicksort(std::vector<T> _elements, int start, int end ){
+void sort(std::vector<T> &vec, size_t start, size_t end) {
+    if (start >= end)
+        return;
 
-	if(start<end){
-		int p = partition(_elements, start, end);
-		quicksort(_elements,start,p-1);
-		quicksort(_elements,p+1,end);
-	}
+    auto boundary = partition(vec, start, end);
 
+    sort(vec, start, boundary);
+    sort(vec, boundary + 1, end);
+}
+template<typename T>
+void quicksort(std::vector<T> &vec) {
+    sort(vec, 0, vec.size() - 1);
 }
 // Binary search for key-based queries
 template<typename T>
 bool binary_search(int start, int end, int key, std::vector<T> _elements) {
-	int lo = start;
-	int up = end;
-
-	while (lo < up)
+	while (start < end)
 	{
-		int mid = lo + (up-lo)/2;
+		int mid = (start + end)/2;
+        cout << "key: " << key << '\n';
+        cout << _elements.at(start) << '\n';
+        cout << _elements.at(mid) << '\n';
+        cout << _elements.at(end) << '\n';
 		if(key == _elements.at(mid))
 		{
 			return true;
 		}
 		if(key < _elements.at(mid)) {
-			up = mid;
+			end = mid;
 		}
 		else {
-			lo = mid;
+			start = mid+1;
 		}
 	}
 	return false;
@@ -58,6 +73,16 @@ zonemap<T>::zonemap(std::vector<T> _elements, uint _num_elements_per_zone)
     zones = _zones;
     num_elements_per_zone =_num_elements_per_zone;
     num_zones = _elements.size()/_num_elements_per_zone;
+    cout << "zonemap initial breakdown:\n";
+    cout << "num elements: " << elements.size() << '\n';
+    cout << "elements: ";
+    for(T element: _elements) {
+        cout << element << " ";
+    }
+    cout << '\n';
+    cout << "num per zone: " << num_elements_per_zone << '\n';
+    cout << "num zones: " << num_zones << "\n\n";
+
 }
 
 template<typename T>
@@ -70,6 +95,8 @@ void zonemap<T>::build()
     T temp_count = 0;
 
     for(uint i = 0; i  < num_zones; i++) {
+        temp_min = INT32_MAX;
+        temp_max = 0;
         std::vector<T> _temp_zone_elements;
         for(uint j = 0; j < num_elements_per_zone; j++) {
             temp_count = j;
@@ -99,27 +126,48 @@ void zonemap<T>::build()
 
     for(zone<T> zone: zones ) {
         assert(zone.elements.size() <= num_elements_per_zone);
+        cout << "zone breakdown:\n";
+        cout << "num elements: " << zone.elements.size() << '\n';
+        cout << "elements: ";
+        for(T element: zone.elements) {
+            cout << element << " ";
+        }
+        cout << "\n\n";
     }
 }
 
 template<typename T>
-void zonemap<T>::sort_elements()
+void zonemap<T>::sort_elements(zone<T> _zone)
 {
-    for(zone<T> z: zones ) {
-        quicksort(z);
+    cout << "sorting zone from original: ";
+    for(T element: _zone.elements) {
+        cout << element << " ";
     }
+    cout << '\n';
+    quicksort(_zone.elements);
+    cout << "results in: ";
+    for(T element: _zone.elements) {
+        cout << element << " ";
+    }
+    cout << '\n';
 }
 
 template<typename T>
 bool zonemap<T>::query(T _key)
 {
     for(zone<T> z: zones ) {
-        if(z.min >= _key && z.max<= _key) {
-            quicksort(z.elements, 0, z.elements.size());
-            if(binary_search(0, z.elements.size(), _key, z.elements)) return true;
+        cout << "key: " << _key << " zone min: " << z.min << " zone max: " << z.max << '\n';
+        if(_key >= z.min && _key <= z.max) {
+            cout << "searching in zone" << '\n';
+            sort_elements(z);
+            if(binary_search(0, z.elements.size()-1, _key, z.elements)) {
+                cout << "found" << '\n';
+                return true;
+            }
             else continue;
         }
     }
+    cout << "not found" << '\n';
     return false;
 }
 

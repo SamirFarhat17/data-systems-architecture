@@ -42,7 +42,7 @@ public:
      * Param: N/A
      * returns: N/A
      */
-    void sort_elements();
+    void sort_elements(zone<T> _zone);
 
     /**
      * Purpose: Query a key using the zonemap
