@@ -1,6 +1,7 @@
 #include "zonemaps.h"
 #include <assert.h>
 #include <iostream>
+#include <math.h>
 using std::cout;
 
 // Implemented quicksort for sorting elements
@@ -72,7 +73,7 @@ zonemap<T>::zonemap(std::vector<T> _elements, uint _num_elements_per_zone)
     std::vector<zone<T>> _zones;
     zones = _zones;
     num_elements_per_zone =_num_elements_per_zone;
-    num_zones = _elements.size()/_num_elements_per_zone;
+    num_zones = ceil((float)_elements.size()/(float)_num_elements_per_zone);
     cout << "zonemap initial breakdown:\n";
     cout << "num elements: " << elements.size() << '\n';
     cout << "elements: ";
