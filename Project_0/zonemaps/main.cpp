@@ -39,14 +39,13 @@ std::vector<int> generatePointQueries(std::vector<int> data, int n)
 std::vector<tuple<int,int>> generateRangeQueries(std::vector<int> data, int n)
 {
 	std::vector<tuple<int,int>> range_queries;
-	std::vector<int> queries = generatePointQueries(std::move(data), n);
 
-	int ten_percent = queries.size()/10;
+	int ten_percent = data.size()/10;
 
-	range_queries.emplace_back(queries.at(ten_percent), queries.at(ten_percent*2));
-	range_queries.emplace_back(queries.at(ten_percent*3), queries.at(ten_percent*4));
-	range_queries.emplace_back(queries.at(ten_percent*6), queries.at(ten_percent*7));
-	range_queries.emplace_back(queries.at(ten_percent*8), queries.at(ten_percent*9));
+	range_queries.emplace_back(data.at(ten_percent), data.at(ten_percent*2));
+	range_queries.emplace_back(data.at(ten_percent*3), data.at(ten_percent*4));
+	range_queries.emplace_back(data.at(ten_percent*6), data.at(ten_percent*7));
+	range_queries.emplace_back(data.at(ten_percent*8), data.at(ten_percent*9));
 
 	return range_queries;
 
@@ -113,6 +112,7 @@ int main(int argc, char **argv) {
 		// range query from zonemaps here
 		tuple<int,int> range_1 = range_queries.at(0);
 		zones.query(std::get<0>(range_1),std::get<1>(range_1));
+		std::cout <<  std::get<0>(range_1) << "," << std::get<1>(range_1) << '\n';
 		int n = data.size();
 
 		auto stop = std::chrono::high_resolution_clock::now();

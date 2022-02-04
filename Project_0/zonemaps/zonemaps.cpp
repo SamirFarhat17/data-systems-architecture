@@ -158,6 +158,10 @@ bool zonemap<T>::query(T _key)
 {
     for(zone<T> z: zones ) {
         cout << "key: " << _key << " zone min: " << z.min << " zone max: " << z.max << '\n';
+        if(_key == z.min || _key == z.max) {
+            cout << "found" << '\n';
+            return true;
+        }
         if(_key >= z.min && _key <= z.max) {
             cout << "searching in zone" << '\n';
             sort_elements(z);
@@ -176,14 +180,21 @@ template<typename T>
 std::vector<T> zonemap<T>::query(T _low, T _high)
 {
     std::vector<T> found_values;
-    if(_low == _high) return found_values;
     if(_low == _high) {
         if(query(_low)) found_values.push_back(_low);
         return found_values;
     }
 
-    for(int i = _low; i <= _high; i++) {
-        if(query(i)) found_values.push_back(i);
+    for(zone<T> z: zones) {
+        if(_low >= z.min && _high <= z.max) {
+            found_values.insert(found_values.end(), z.elements.begin(), z.elements.end());
+            continue;
+        }
+        if((_low >= z.min && _low <= z.max) || (_high <= z.max && _high >= z.min) ) {
+            for(T element: z.elements) {
+                if(element >= _low || element <= _high) found_values.push_back(element);
+            }
+        }
     }
     return found_values;
 }
