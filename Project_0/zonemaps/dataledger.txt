@@ -8,3 +8,4 @@
 .//data_5000000-elems_5-kperct_5-lperct_1seed1644002884.dat
 .//data_5000000-elems_25-kperct_5-lperct_1seed1644002889.dat
 .//data_5000000-elems_0-kperct_5-lperct_1seed1644030028.dat
+.//data_100-elems_0-kperct_5-lperct_1seed1644064635.dat

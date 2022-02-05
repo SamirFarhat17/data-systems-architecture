@@ -185,6 +185,7 @@ range query 2: 516 microseconds
 range query 3: 511 microseconds
 range query 4: 510 microseconds
 average range query: 519 microseconds
+
 Domain 1 Million | Noise 5% | Seed 1644002865
 point query: 114499908 microseconds
 range query 1: 2733 microseconds
@@ -192,6 +193,7 @@ range query 2: 3057 microseconds
 range query 3: 2805 microseconds
 range query 4: 2533 microseconds
 average range query: 2782 microseconds
+
 Domain 1 Million | Noise 25% | Seed 1644002870
 point query: 166014961 microseconds
 range query 1: 2892 microseconds
@@ -199,22 +201,25 @@ range query 2: 1361 microseconds
 range query 3: 2517 microseconds
 range query 4: 3263 microseconds
 average range query: 2508 microseconds
+
 Domain 5 Million | Noise 0% | Seed 1644002880
-point query: 865012977 microseconds
+point query: 4953622063 microseconds
 range query 1: 1491 microseconds
 range query 2: 1482 microseconds
 range query 3: 1490 microseconds
 range query 4: 1574 microseconds
 average range query: 1509 microseconds
+
 Domain 5 Million | Noise 5% | Seed 1644002884
-point query: 1034112377 microseconds
+point query: 6781238204 microseconds
 range query 1: 15091 microseconds
 range query 2: 16124 microseconds
 range query 3: 13618 microseconds
 range query 4: 15070 microseconds
 average range query: 14976
+
 Domain 5 Million | Noise 25% | Seed 1644002889 
-point query: 1927012307 microseconds
+point query: 9485451192 microseconds
 range query 1: 18589 microseconds
 range query 2: 12356 microseconds
 range query 3: 12367 microseconds
