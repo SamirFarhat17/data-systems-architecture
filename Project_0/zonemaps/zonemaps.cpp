@@ -1,6 +1,7 @@
 #include "zonemaps.h"
 #include <assert.h>
 #include <iostream>
+#include <algorithm>
 #include <math.h>
 
 // Implemented quicksort for sorting elements
@@ -127,6 +128,7 @@ void zonemap<T>::build()
 
     // Perform invariant maintenance check which was accounted for earlier 
     for(zone<T> zone: zones ) {
+        //std::cout << "size: " << zone.size << "min: " << zone.min << "max: " << zone.max << '\n';
         assert(zone.elements.size() <= num_elements_per_zone);
     }
 }
@@ -149,7 +151,9 @@ bool zonemap<T>::query(T _key)
         }
         // do binary search for efficient location
         if(_key > z.min && _key < z.max) {
-            if(binary_search(0, z.elements.size()-1, _key, z.elements)) {
+            //std::cout << "key " << _key << " " << z.min << " " << z.max << "\n";
+            if(std::binary_search(z.elements.begin(),z.elements.end(), _key)) {
+                //std::cout << "found\n";
                 return true;
             }
             else continue;
