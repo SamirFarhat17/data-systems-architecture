@@ -1,3 +1,9 @@
 .//data_100-elems_5-kperct_5-lperct_1seed1643816410.dat
 .//data_100-elems_5-kperct_5-lperct_1seed1643818769.dat
 .//data_111-elems_5-kperct_5-lperct_1seed1643821690.dat
+.//data_1000000-elems_0-kperct_5-lperct_1seed1644002859.dat
+.//data_1000000-elems_5-kperct_5-lperct_1seed1644002865.dat
+.//data_1000000-elems_25-kperct_5-lperct_1seed1644002870.dat
+.//data_5000000-elems_0-kperct_5-lperct_1seed1644002880.dat
+.//data_5000000-elems_5-kperct_5-lperct_1seed1644002884.dat
+.//data_5000000-elems_25-kperct_5-lperct_1seed1644002889.dat
