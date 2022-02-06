@@ -111,6 +111,7 @@ void zonemap<T>::build()
             }
             else break;
         }
+        quicksort(_temp_zone_elements);
         // Initialize zone
         zone<T> _temp_zone = {
                 _temp_zone_elements,
@@ -120,7 +121,6 @@ void zonemap<T>::build()
         };
 
         // Sort zone prior to prevent overhead while querying(online stage)
-        sort_elements(_temp_zone);
         _zones.push_back(_temp_zone);
     }
 
@@ -146,20 +146,16 @@ bool zonemap<T>::query(T _key)
     for(zone<T> z: zones ) {
         // key is one of the edges of the zone
         if(_key == z.min || _key == z.max) {
-            //std::cout << "found\n";
             return true;
         }
         // do binary search for efficient location
         if(_key > z.min && _key < z.max) {
-            //std::cout << "key " << _key << " " << z.min << " " << z.max << "\n";
-            if(std::binary_search(z.elements.begin(),z.elements.end(), _key)) {
-                //std::cout << "found\n";
+            if(binary_search(z.elements.begin(),z.elements.end(), _key)) {
                 return true;
             }
             else continue;
         }
     }
-    //std::cout << "not found" << '\n';
     return false;
 }
 
